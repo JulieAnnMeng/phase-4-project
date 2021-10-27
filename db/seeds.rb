@@ -3,17 +3,17 @@
 
 puts 'seeding Parents...'
 
-julie = Parent.create(first_name: 'Julie', last_name: 'Meng', username: 'JMeng', password_digest: 'password12345')
-chaim = Parent.create(first_name: 'Chaim', last_name: 'Chazan', username: 'CChazan')
-paul = Parent.create(first_name: 'Paul', last_name: 'Ghayad', username: 'PGhayad')
+julie = Parent.create(first_name: 'Julie', last_name: 'Meng', username: 'JMeng', password_digest: BCrypt::Password.create('password12345'))
+chaim = Parent.create(first_name: 'Chaim', last_name: 'Chazan', username: 'CChazan', password_digest: BCrypt::Password.create('password98765'))
+paul = Parent.create(first_name: 'Paul', last_name: 'Ghayad', username: 'PGhayad', password_digest: BCrypt::Password.create('password'))
 
 puts 'seeding Students...'
 
-andy = Student.create(first_name: 'Andy', last_name: 'Anguilar', username: 'AAnguilar', password_digest: 'password', parent: julie)
-dakota = Student.create(first_name: 'Dakota', last_name: 'Martinez', username: 'DMartinez', parent: paul)
-aysan = Student.create(first_name: 'Aysan', last_name: 'Isayo', username: 'AIsayo', parent: chaim)
-cody = Student.create(first_name: 'Cody', last_name: 'Green', username: 'CGreen', parent: julie)
-blake = Student.create(first_name: 'Blake', last_name: 'Long', username: 'BLong', parent: chaim)
+andy = Student.create(first_name: 'Andy', last_name: 'Anguilar', username: 'AAnguilar', password_digest: BCrypt::Password.create('password'), parent: julie)
+dakota = Student.create(first_name: 'Dakota', last_name: 'Martinez', username: 'DMartinez', password_digest: BCrypt::Password.create('password'), parent: paul)
+aysan = Student.create(first_name: 'Aysan', last_name: 'Isayo', username: 'AIsayo', password_digest: BCrypt::Password.create('password'), parent: chaim)
+cody = Student.create(first_name: 'Cody', last_name: 'Green', username: 'CGreen', password_digest: BCrypt::Password.create('password'), parent: julie)
+blake = Student.create(first_name: 'Blake', last_name: 'Long', username: 'BLong', password_digest: BCrypt::Password.create('password'), parent: chaim)
 
 puts 'seeding CafeteriaMenu...'
 
