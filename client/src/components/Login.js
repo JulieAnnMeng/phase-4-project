@@ -32,19 +32,20 @@ function Login (){
     e.preventDefault();
     console.log(formData)
   
-    // fetch(`/${formData.user}/login`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     username: formData.username,
-    //     password: formData.password,
-    //     password_confirmation: formData.password_confirmation
-    //   }),
-    // })
-    //   .then((r) => r.json())
-    //   .then(data => console.log(data));
+    fetch(`/api/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: formData.user,
+        username: formData.username,
+        password: formData.password,
+        password_confirmation: formData.password_confirmation
+      }),
+    })
+      .then((r) => r.json())
+      .then(user => console.log(user));
 
       setFormData({username: '', password: '', password_confirmation: '', user: ''})
   }
@@ -98,10 +99,10 @@ function Login (){
           </Form.Field>
           <Form.Field>
             <Radio
-              label='Admin'
-              name='admin'
-              value='admin'
-              checked={formUser === 'admin'}
+              label='Parent'
+              name='parent'
+              value='parent'
+              checked={formUser === 'parent'}
               onChange={handleUser}
             />
           </Form.Field>

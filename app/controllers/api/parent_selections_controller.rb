@@ -1,4 +1,4 @@
-class ParentSelectionsController < ApplicationController
+class Api::ParentSelectionsController < ApplicationController
 
     def index
         render json: ParentSelection.all, status: :ok

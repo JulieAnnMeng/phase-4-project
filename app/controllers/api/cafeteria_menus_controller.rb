@@ -1,4 +1,4 @@
-class CafeteriaMenusController < ApplicationController
+class Api::CafeteriaMenusController < ApplicationController
 
     def index
         render json: CafeteriaMenu.all, status: :ok

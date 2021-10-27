@@ -1,4 +1,4 @@
-class StudentSelectionsController < ApplicationController
+class Api::StudentSelectionsController < ApplicationController
 
     def index
         render json: StudentSelection.all, status: :ok
