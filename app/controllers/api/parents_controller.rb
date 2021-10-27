@@ -9,6 +9,13 @@ class Api::ParentsController < ApplicationController
         render json: parent, status: :ok
     end
 
+    def getkids
+        # byebug
+        parent = Parent.find(params[:id])
+        # kids = Student.find_by(parent_id: params[:id])
+        render json: parent, status: :ok
+    end
+
     def create
         parent = Parent.new(parent_params)
         if parent.save

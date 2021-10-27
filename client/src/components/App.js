@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import '../App.css';
 import Auth from './Auth';
 import {
@@ -9,12 +9,34 @@ import {
 } from "react-router-dom";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetch("/api/me").then((response) => {
+      if (response.ok) {
+        response.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+
+  if(user) {console.log("you are logged in")}
+
+  function handleLogout() {
+    fetch("/api/logout", {
+      method: "DELETE",
+    }).then(() => setUser(null));
+  }
+
+
   return (
     <div className="App">
       <nav>
           <ul>
             <li>
               <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <button onClick={handleLogout}>logout</button>
             </li>
             <li>
               <Link to="/add_new_user">About</Link>
@@ -24,7 +46,7 @@ function App() {
 
 
       <Switch>
-          <Auth/>
+          <Auth setUser={setUser} user={user}/>
       </Switch>
     </div>
   );

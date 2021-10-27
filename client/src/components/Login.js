@@ -15,8 +15,8 @@ const Wrapper = styled.div`
 `;
 
 
-function Login (){
-  const [formData, setFormData] = useState({username: '', password: '', password_confirmation: '', user: ''})
+function Login ({setUser}){
+  const [formData, setFormData] = useState({username: '', password: '', user: ''})
   const [formUser, setFormUser] = useState("")
 
   function handleUser(e, { value }){
@@ -31,7 +31,6 @@ function Login (){
   function handleSubmit(e){
     e.preventDefault();
     console.log(formData)
-  
     fetch(`/api/login`, {
       method: "POST",
       headers: {
@@ -41,13 +40,17 @@ function Login (){
         user: formData.user,
         username: formData.username,
         password: formData.password,
-        password_confirmation: formData.password_confirmation
+        // password_confirmation: formData.password_confirmation
       }),
     })
       .then((r) => r.json())
-      .then(user => console.log(user));
+      .then(data => {
+        setUser(data)
+        console.log(data)
+      })
+      .catch((err) => console.log(err))
 
-      setFormData({username: '', password: '', password_confirmation: '', user: ''})
+      setFormData({username: '', password: '', user: ''})
   }
 
 
@@ -81,7 +84,7 @@ function Login (){
           />
           </Form.Field>
 
-          <Form.Field>
+          {/* <Form.Field>
             <label>Password Confirmation</label>
             <Form.Input
               type='password'
@@ -92,7 +95,7 @@ function Login (){
               icon='lock'
               iconPosition='left'
             />
-          </Form.Field>
+          </Form.Field> */}
 
           <Form.Field>
             Selected value: <b>{formUser}</b>
@@ -137,5 +140,4 @@ function Login (){
 }
 
 
-export default Login  
-
+export default Login

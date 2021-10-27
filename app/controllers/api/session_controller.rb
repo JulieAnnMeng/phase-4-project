@@ -1,5 +1,5 @@
 class Api::SessionController < ApplicationController
-    # skip_before_action :authorize, only: :create
+    skip_before_action :authorize, only: :create
 
     def create
         # byebug
@@ -7,24 +7,35 @@ class Api::SessionController < ApplicationController
         if model == 'parent'
             parent = Parent.find_by(username: params[:username])
             if parent&.authenticate(params[:password])
-                session[:user_id] = parent.id
-                render json: parent
+                session[:parent_id] = parent.id
+                render json: parent, status: :created
             else
                 render json: { errors: ["Invalid username or password"] }, status: :unauthorized
             end
         else
             student = Student.find_by(username: params[:username])
             if student&.authenticate(params[:password])
-                session[:user_id] = student.id
-                render json: student
+                session[:student_id] = student.id
+                render json: student, status: :created
             else
                 render json: { errors: ["Invalid username or password"] }, status: :unauthorized
             end
         end
     end
+
+    def show
+        # byebug
+        render json: @current_user
+    end
   
     def destroy
-      session.delete :user_id
-      head :no_content
+        if session[:parent_id]
+            session.delete :parent_id
+            head :no_content
+        end
+        if session[:student_id]
+            session.delete :student_id
+            head :no_content
+        end
     end
 end
