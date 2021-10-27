@@ -1,4 +1,5 @@
 class Api::StudentsController < ApplicationController
+    skip_before_action :authorize, only: :create
     def index
         render json: Student.all, status: :ok
     end
@@ -11,6 +12,7 @@ class Api::StudentsController < ApplicationController
     def create
         student = Student.new(student_params)
         if student.save
+            session[:student_id] = student.id
             render json: student, status: :created
         else
             render json: {errors: student.errors}, status: :unauthorized
@@ -35,6 +37,6 @@ class Api::StudentsController < ApplicationController
     private
 
     def student_params
-        params.permit(:first_name, :last_name, :username, :parent_id)
+        params.permit(:first_name, :last_name, :username, :password, :password_confirmation)
     end
 end

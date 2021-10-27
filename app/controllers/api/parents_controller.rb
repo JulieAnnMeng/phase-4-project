@@ -1,13 +1,22 @@
 class Api::ParentsController < ApplicationController
+    skip_before_action :authorize, only: :create
+
+    #  Create new parent
+    def create
+        parent = Parent.create(parent_params)
+        session[:parent_id] = parent.id
+        render json: parent, status: :created
+    end
+
 
     def index
         render json: Parent.all, status: :ok
     end
 
-    def show
-        parent = Parent.find(params[:id])
-        render json: parent, status: :ok
-    end
+    # def show
+    #     parent = Parent.find(params[:id])
+    #     render json: parent, status: :ok
+    # end
 
     def getkids
         # byebug
@@ -16,14 +25,7 @@ class Api::ParentsController < ApplicationController
         render json: parent, status: :ok
     end
 
-    def create
-        parent = Parent.new(parent_params)
-        if parent.save
-            render json: parent, status: :created
-        else
-            render json: {errors: parent.errors}, status: :unauthorized
-        end
-    end
+
 
     def update
         parent = Parent.find(params[:id])
@@ -43,6 +45,6 @@ class Api::ParentsController < ApplicationController
     private
 
     def parent_params
-        params.permit(:first_name, :last_name, :username)
+        params.permit(:first_name, :last_name, :username, :password, :password_confirmation)
     end
 end

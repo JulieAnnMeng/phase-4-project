@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get "/children/:id", to: "parents#getkids"
     post "/login", to: "session#create"
     delete "/logout", to: "session#destroy"
+    post "/signup", to: "parents#create"
     resources :student_selections
     resources :parent_selections
     resources :cafeteria_menus
