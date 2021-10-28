@@ -1,7 +1,17 @@
-import React, {useEffect, useState} from "react";
-import ViewChildren from './ViewChildren.js';
-import ParentMenu from './ParentMenu';
+import React, { useEffect, useState } from "react";
+// import ViewChildren from "./ViewChildren.js";
+// import ParentMenu from "./ParentMenu";
 import StudentMenu from "./StudentMenu.js";
+// import AddStudentToParent from "./AddStudentToParent.js";
+// import StudentOfParent from "./StudentsOfParent.js";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link,
+	Redirect,
+	useHistory,
+} from "react-router-dom";
 
 function ParentContainer({ user, students, parentSelection }) {
 	const [studentSelection, setStudentSelection] = useState(null);
@@ -10,88 +20,72 @@ function ParentContainer({ user, students, parentSelection }) {
 	let parentPick;
 	let studentPick;
 
-    if (students !== null) {
-        children = students.map(child => {
-            let name = `${child.first_name} ${child.last_name}`;
+	// if (parentSelection !== null) {
+	// 	parentPick = parentSelection.map((menu) => {
+	// 		let item = menu.cafeteria_menu;
 
-            return (
-                <ViewChildren
-                    key={child.id}
-					id={child.id}
-                    name={name}
-					studentMenu={studentMenu}
-                />
-            )
-		})
-    }
+	// 		return (
+	// 			<ParentMenu
+	// 				key={item.id}
+	// 				id={item.id}
+	// 				meal={item.meal}
+	// 				item={item.item}
+	// 				picture={item.picture}
+	// 			/>
+	// 		);
+	// 	});
+	// }
 
-	if(parentSelection !== null) {
-		parentPick = parentSelection.map(menu => {
-			let item = menu.cafeteria_menu;
-			
-			return (
-				<ParentMenu 
-					key={item.id}
-					id={item.id}
-					meal={item.meal}
-					item={item.item}
-					picture={item.picture}
-				/>
-			)
-		})
-	}
-
-	function studentMenu (e) {
+	function studentMenu(e) {
 		e.preventDefault();
-		let id = parseInt(e.target.id)
+		let id = parseInt(e.target.id);
 		fetch(`/api/student_selections/${id}`)
-        .then(response => response.json())
-        .then(data => setStudentSelection(data))
+			.then((response) => response.json())
+			.then((data) => setStudentSelection(data));
 	}
 
 	if (studentSelection !== null) {
-		studentPick = studentSelection.map(menu => {
-			console.log(menu)
+		studentPick = studentSelection.map((menu) => {
+			console.log(menu);
 			let item = menu;
 			// console.log(item);
 			return (
-				<StudentMenu 
-					key={item.id} 
+				<StudentMenu
+					key={item.id}
 					meal={item.meal}
 					item={item.item}
 					picture={item.picture}
 				/>
-			)			
-		})
+			);
+		});
 	}
-	
-	
+
 	return (
 		<>
 			<div>
 				<h1>Hello {user.first_name},</h1>
-				<p>Welcome to Cafeteria Delight. This is your one stop shop to manage your students school menu.</p>
-				<p>Feel free to add your children to this site. Once created, your student will have the freedom to select from your personal menu choices</p>
-				<p>You can also add menu items to the list. These items will be sent to your school's cafeteria menu.</p>
+				<p>
+					Welcome to Cafeteria Delight. This is your one stop shop to
+					manage your students school menu.
+				</p>
+				<p>
+					Feel free to add your children to this site. Once created,
+					your student will have the freedom to select from your
+					personal menu choices
+				</p>
+				<p>
+					You can also add menu items to the list. These items will be
+					sent to your school's cafeteria menu.
+				</p>
 				<button>Add Students</button>
 				<button>Add Menu Items</button>
-				<br /><br />				
-				<h2>Students</h2>
-				<table className='center'>
-					<thead>
-						<tr>
-							<th>Students</th>
-							<th>Selections</th>
-							<th>Edit</th>
-						</tr>
-					</thead>
-					<tbody>
-						{children}
-					</tbody>
-        		</table>
-				<br /><br />
+				<br />
+				<br />
+
+				<br />
+				<br />
 				<h2>Student Menu Options</h2>
-				<table className='center'>
+				<table className="center">
 					<thead>
 						<tr>
 							<th>Meal</th>
@@ -100,40 +94,37 @@ function ParentContainer({ user, students, parentSelection }) {
 							<th>Delete</th>
 						</tr>
 					</thead>
-					<tbody>
-						{parentPick}
-					</tbody>
-        		</table>
-				
+					<tbody>{parentPick}</tbody>
+				</table>
 			</div>
+			{/* ================ */}
+
+			{/* ================ */}
 		</>
 	);
 }
 export default ParentContainer;
 
-
 // ----code below was moved to App.js. keeping it here incase we need to move it back-----------------
 
-	// const [students, setStudents] = useState(null);
-	// const [parentSelection, setParentSelection] = useState(null);
-	
-	
+// const [students, setStudents] = useState(null);
+// const [parentSelection, setParentSelection] = useState(null);
 
-	// function getStudents (id){
-    //     fetch(`/api/children/${id}`)
-    //     .then(response => response.json())
-    //     .then(setStudents)
-    // }
+// function getStudents (id){
+//     fetch(`/api/children/${id}`)
+//     .then(response => response.json())
+//     .then(setStudents)
+// }
 
-    // function getParentSelection (id){
-    //     fetch(`/api/parent_selections/${id}`)
-    //     .then(response => response.json())
-    //     .then(data => setParentSelection(data))
-    // }
+// function getParentSelection (id){
+//     fetch(`/api/parent_selections/${id}`)
+//     .then(response => response.json())
+//     .then(data => setParentSelection(data))
+// }
 
-	// useEffect((user) => {
-    //     // debugger;
-	// 	let id = user.id;
-    //     getStudents(id);
-    //     getParentSelection(id);
-    // }, [user])
+// useEffect((user) => {
+//     // debugger;
+// 	let id = user.id;
+//     getStudents(id);
+//     getParentSelection(id);
+// }, [user])

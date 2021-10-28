@@ -1,17 +1,25 @@
-import React, {useEffect, useState} from "react";
-
+import React, { useEffect, useState } from "react";
+import EachChild from "./EachChild";
 // import ViewMenu from './ViewMenu';
 
-function ViewChildren({id, name, studentMenu}) {
-
-    return (
-        <tr>
-            <td>{name}</td>
-            <td><button id={id} onClick={studentMenu}>🔎</button></td>
-            <td><button>✎</button></td>
-        </tr>
-           
-    )
-
+function ViewChildren({ students }) {
+	return (
+		<div>
+			<h2>Students</h2>
+			<table className="center">
+				<thead>
+					<tr>
+						<th>Students</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					{students.map((child) => (
+						<EachChild key={child.id} child={child} />
+					))}
+				</tbody>
+			</table>
+		</div>
+	);
 }
-export default ViewChildren
+export default ViewChildren;
