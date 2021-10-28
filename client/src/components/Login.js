@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Form, Radio, Grid, Image } from "semantic-ui-react";
+import { Form, Radio, Grid, Image, Message } from "semantic-ui-react";
 import MyImage from "./boy-1822565.jpg";
 import { useHistory } from "react-router-dom";
 // STYLES
@@ -20,6 +20,7 @@ function Login({ setUser }) {
 		user: "",
 	});
 	const [formUser, setFormUser] = useState("");
+	const [errors, setErrors] = useState(null);
 	const history = useHistory();
 
 	function handleUser(e, { value }) {
@@ -46,13 +47,25 @@ function Login({ setUser }) {
 				password_confirmation: formData.password,
 			}),
 		})
-			.then((r) => r.json())
-			.then((data) => {
-				setUser(data);
-				// console.log(data);
-				history.push("/parent");
-			})
-			.catch((err) => setUser(null));
+			// .then((r) => r.json())
+			// .then((data) => {
+			// 	setUser(data);
+			// 	// console.log(data);
+			// 	history.push("/parent");
+			// })
+			// .catch((err) => setUser(null));
+
+			.then((r) => {
+				// setIsLoading(false);
+				if (r.ok) {
+					r.json().then((data) => {
+						setUser(data);
+						history.push("/parent");
+					});
+				} else {
+					r.json().then((err) => setErrors(err.errors));
+				}
+			});
 
 		setFormData({ username: "", password: "", user: "" });
 	}
@@ -126,6 +139,9 @@ function Login({ setUser }) {
 					style={{ background: "#191815", color: "white" }}
 				/>
 			</Form>
+			{errors ? (
+				<Message error header={errors} content="Please sign in again" />
+			) : null}
 		</Wrapper>
 	);
 	return (

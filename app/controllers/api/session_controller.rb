@@ -8,9 +8,9 @@ class Api::SessionController < ApplicationController
             parent = Parent.find_by(username: params[:username])
             if parent&.authenticate(params[:password])
                 session[:parent_id] = parent.id
-                render json: parent, status: :created
+                render json: parent, status: :ok
             else
-                render json: { errors: ["Invalid username or password"] }, status: :unauthorized
+                render json: { errors: "Invalid username or password" }, status: :unauthorized
             end
         else
             student = Student.find_by(username: params[:username])
@@ -18,7 +18,7 @@ class Api::SessionController < ApplicationController
                 session[:student_id] = student.id
                 render json: student, status: :created
             else
-                render json: { errors: ["Invalid username or password"] }, status: :unauthorized
+                render json: { errors: "Invalid username or password" }, status: :unauthorized
             end
         end
     end
