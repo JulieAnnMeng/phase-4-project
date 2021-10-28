@@ -2,13 +2,12 @@ class Api::SessionController < ApplicationController
     skip_before_action :authorize, only: :create
 
     def create
-        # byebug
         model = params[:user]
         if model == 'parent'
             parent = Parent.find_by(username: params[:username])
             if parent&.authenticate(params[:password])
                 session[:parent_id] = parent.id
-                render json: parent, status: :ok
+                render json: parent, include: ['student_selections.parent_selections', include: ['cafeteria_menu']], status: :ok
             else
                 render json: { errors: "Invalid username or password" }, status: :unauthorized
             end
@@ -24,7 +23,6 @@ class Api::SessionController < ApplicationController
     end
 
     def show
-        # byebug
         render json: @current_user
     end
   

@@ -1,5 +1,7 @@
 class StudentSelectionSerializer < ActiveModel::Serializer
-  attributes :id
-  has_one :parent_selection
-  has_one :student
+  attributes :id, :parent_selection
+
+  belongs_to :parent_selection
+  belongs_to :student
+  # belongs_to :parent, through: :student
 end

@@ -1,5 +1,7 @@
 class ParentSelectionSerializer < ActiveModel::Serializer
-  attributes :id
-  has_one :cafeteria_menu
-  has_one :parent
+  attributes :id, :cafeteria_menu_id
+
+  belongs_to :cafeteria_menu
+  belongs_to :parent
+
 end

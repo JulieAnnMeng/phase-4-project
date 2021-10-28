@@ -6,26 +6,27 @@ class Api::StudentsController < ApplicationController
 
     def show
         student = Student.find(params[:id])
-        render json: student, status: :ok
+        render json: student, include: ['student_selections.cafeteria_menu'] status: :ok
     end
 
     def create
         student = Student.new(student_params)
         if student.save
-            session[:student_id] = student.id
             render json: student, status: :created
         else
-            render json: {errors: student.errors}, status: :unauthorized
+            render json: {errors: student.errors}, status: :unprocessable_entity
         end
     end
 
     def update
+        byebug
         student = Student.find(params[:id])
         if student.update(student_params)
             render json: student, status: :created
         else
-            render json: {errors: student.errors}, status: :unauthorized
+            render json: {errors: student.errors}, status: :unprocessable_entity
         end
+        byebug
     end
 
     def destroy
@@ -37,6 +38,7 @@ class Api::StudentsController < ApplicationController
     private
 
     def student_params
-        params.permit(:first_name, :last_name, :username, :password, :password_confirmation)
+        params.permit(:first_name, :last_name, :username, :password, :password_confirmation, :parent_id)
     end
 end
+

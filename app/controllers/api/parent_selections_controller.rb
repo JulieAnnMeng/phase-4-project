@@ -5,13 +5,12 @@ class Api::ParentSelectionsController < ApplicationController
     end
 
     def show
-        # parent = Parent.find(params[:id])
         selection = ParentSelection.where(:parent_id => params[:id])
-        # byebug
         render json: selection, status: :ok
     end
 
     def create
+        byebug
         selection = ParentSelection.new(parent_selection_params)
         if selection.save
             render json: selection, status: :created
