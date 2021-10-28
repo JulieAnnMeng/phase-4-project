@@ -5,7 +5,9 @@ class Api::ParentSelectionsController < ApplicationController
     end
 
     def show
-        selection = ParentSelection.find(params[:id])
+        # parent = Parent.find(params[:id])
+        selection = ParentSelection.where(:parent_id => params[:id])
+        # byebug
         render json: selection, status: :ok
     end
 
@@ -28,7 +30,8 @@ class Api::ParentSelectionsController < ApplicationController
     end
 
     def destroy
-        selection = ParentSelection.find(params[:id])
+        byebug
+        selection = ParentSelection.find_by(cafeteria_menu_id: params[:id])
         selection.destroy
         head :no_content
     end

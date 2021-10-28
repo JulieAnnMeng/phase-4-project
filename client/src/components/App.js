@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import Auth from "./Auth";
-import Parent from "./Parent";
 import ParentContainer from "./Parent_container";
 import {
 	BrowserRouter as Router,
@@ -16,18 +15,25 @@ import NavBar from "./Navbar";
 function App() {
 	const [user, setUser] = useState(null);
 	const [userLevel, setUserLevel] = useState(null);
+	const [students, setStudents] = useState(null);
+	const [parentSelection, setParentSelection] = useState(null);
 	const history = useHistory();
+
 	useEffect(() => {
 		fetch("/api/me").then((response) => {
 			if (response.ok) {
-				response.json().then((user) => setUser(user));
+				response.json().then((user) => {
+					setUser(user)
+					getStudents(user.id)
+					getParentSelection(user.id)
+				});
 			}
 		});
 	}, []);
 
-	if (user) {
-		console.log(user);
-	}
+	// if (user) {
+	// 	console.log(user);
+	// }
 
 	function handleLogout() {
 		fetch("/api/logout", {
@@ -38,6 +44,18 @@ function App() {
 			history.push("/login");
 		});
 	}
+
+	function getStudents (id){
+        fetch(`/api/children/${id}`)
+        .then(response => response.json())
+        .then(setStudents)
+    }
+
+    function getParentSelection (id){
+        fetch(`/api/parent_selections/${id}`)
+        .then(response => response.json())
+        .then(data => setParentSelection(data))
+    }
 
 	return (
 		<div className="App">
@@ -54,7 +72,7 @@ function App() {
 
 				{user ? (
 					<Route exact path="/parent">
-						<ParentContainer user={user} />
+						<ParentContainer user={user} students={students} parentSelection={parentSelection} />
 					</Route>
 				) : null}
 

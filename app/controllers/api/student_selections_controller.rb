@@ -5,8 +5,11 @@ class Api::StudentSelectionsController < ApplicationController
     end
 
     def show
-        selection = StudentSelection.find(params[:id])
-        render json: selection, status: :ok
+        selection = StudentSelection.where(:student_id => params[:id])
+        # byebug
+        menu = selection.map{|items| items.parent_selection}
+        meals = menu.map{|item| item.cafeteria_menu}
+        render json: meals, status: :ok
     end
 
     def create

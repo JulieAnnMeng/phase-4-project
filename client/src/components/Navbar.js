@@ -25,24 +25,27 @@ function NavBar({ handleLogout, user }) {
 		<>
 			<Nav>
 				<Ul>
-					<Li>
-						<Link to="/login">Login</Link>
-					</Li>
+					
 					{user ? (
 						<>
-							<Li>
+							{/* <Li>
 								<Link to="/parent">Parent</Link>
-							</Li>
+							</Li> */}
 							<Li>
 								<Link to="/login" onClick={handleLogout}>
-									Logout
+									<button>Logout</button>
 								</Link>
 							</Li>
 						</>
 					) : (
-						<Li>
-							<Link to="/add_new_user">Signup</Link>
-						</Li>
+						<>
+							<Li>
+								<Link to="/login"><button>Login</button></Link>
+							</Li>
+							<Li>
+								<Link to="/add_new_user"><button>Signup</button></Link>
+							</Li>
+						</>
 					)}
 				</Ul>
 			</Nav>

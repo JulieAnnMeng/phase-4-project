@@ -33,7 +33,7 @@ function Login({ setUser }) {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		console.log(formData);
+		// console.log(formData);
 		fetch(`/api/login`, {
 			method: "POST",
 			headers: {
@@ -49,7 +49,7 @@ function Login({ setUser }) {
 			.then((r) => r.json())
 			.then((data) => {
 				setUser(data);
-				console.log(data);
+				// console.log(data);
 				history.push("/parent");
 			})
 			.catch((err) => setUser(null));

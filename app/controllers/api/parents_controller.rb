@@ -19,13 +19,9 @@ class Api::ParentsController < ApplicationController
     # end
 
     def getkids
-        # byebug
         parent = Parent.find(params[:id])
-        # kids = Student.find_by(parent_id: params[:id])
-        render json: parent, status: :ok
+        render json: parent.students, status: :ok
     end
-
-
 
     def update
         parent = Parent.find(params[:id])

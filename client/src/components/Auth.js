@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CreateAdminUser from "./CreateAdminUser";
 import Login from "./Login";
-import Parent from "./Parent";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function Auth({ setUser, user }) {
@@ -16,9 +15,6 @@ function Auth({ setUser, user }) {
 			<Route exact path="/add_new_user">
 				<CreateAdminUser setUser={setUser} />
 			</Route>
-			{/* <Route exact path="/parent">
-				<Parent user={user} />
-			</Route> */}
 		</>
 	);
 }

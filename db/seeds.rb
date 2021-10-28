@@ -1,6 +1,10 @@
 # This file is seeding data that should be removed once site is completed.
 # Passwords are not secure with the seeds below.
 
+# Parent.delete_all
+# Student.delete_all
+# CafeteriaMenu.delete_all
+
 puts 'seeding Parents...'
 
 julie = Parent.create(first_name: 'Julie', last_name: 'Meng', username: 'JMeng', password_digest: BCrypt::Password.create('password12345'))
@@ -43,4 +47,6 @@ breakfast1 = ParentSelection.create(cafeteria_menu: eggs, parent: julie)
 
 puts 'seeding Student Selections...'
 SLunch1 = StudentSelection.create(parent_selection: lunch1, student: andy)
+SLunch3 = StudentSelection.create(parent_selection: lunch1, student: cody)
+SBeverage1 = StudentSelection.create(parent_selection: beverage1, student: andy)
 SLunch2 = StudentSelection.create(parent_selection: lunch2, student: blake)
