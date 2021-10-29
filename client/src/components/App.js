@@ -3,10 +3,10 @@ import "../App.css";
 import Auth from "./Auth";
 import ParentContainer from "./Parent_container";
 import AddStudentToParent from "./AddStudentToParent.js";
-import StudentContainer from "./Student_container"
+import StudentContainer from "./Student_container";
 import ViewChildren from "./ViewChildren.js";
 import FoodSelecion from "./FoodSelection";
-import CafeteriaMenu from "./CafeteriaMenu"
+import CafeteriaMenu from "./CafeteriaMenu";
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -16,10 +16,10 @@ import {
 	useHistory,
 } from "react-router-dom";
 import NavBar from "./Navbar";
-
+import Login from "./Login";
 let ADMIN = null;
 
-function App({ADMIN}) {
+function App({ ADMIN }) {
 	const [user, setUser] = useState(null);
 	const [userLevel, setUserLevel] = useState(null);
 	const [students, setStudents] = useState(null);
@@ -29,27 +29,42 @@ function App({ADMIN}) {
 	const history = useHistory();
 	function renderApp() {
 		setReRender(!reRender);
+		console.log("RERENDER");
 	}
-
-	
 	useEffect(() => {
 		fetch("/api/me")
-		.then((response) => response.json())
-		.then((data) => {
-			getAdmin(data);
-			setUser(data);
-		})
-		.catch((error) => {console.log(error.message)})
+			.then((response) => response.json())
+			.then((data) => {
+				getAdmin(data);
+				setUser(data);
+			})
+			.catch((error) => {
+				console.log(error.message);
+			});
 	}, []);
 	// reRender
 
-	function getAdmin (data) {
-		console.log(data)
-		if (data.hasOwnProperty('students')) {
-			ADMIN = 'parent';
-		} else if (data.hasOwnProperty('parent')) {
-			ADMIN = 'student';
-		} else {ADMIN = null;}
+	// useEffect(() => {
+	// 	// auto-login
+	// 	fetch("/api/me").then((r) => {
+	// 		if (r.ok) {
+	// 			r.json().then((user) => {
+	// 				setUser(user);
+	// 				getAdmin(user);
+	// 			});
+	// 		}
+	// 	});
+	// }, []);
+
+	function getAdmin(data) {
+		console.log(data);
+		if (data.hasOwnProperty("students")) {
+			ADMIN = "parent";
+		} else if (data.hasOwnProperty("parent")) {
+			ADMIN = "student";
+		} else {
+			ADMIN = null;
+		}
 	}
 
 	function handleLogout() {
@@ -57,7 +72,10 @@ function App({ADMIN}) {
 			method: "DELETE",
 		}).then(() => {
 			setUser(null);
+			ADMIN = null;
 			console.log(`${user.username} logged out!`);
+
+			setReRender(!reRender);
 			history.push("/login");
 		});
 		ADMIN = null;
@@ -65,12 +83,9 @@ function App({ADMIN}) {
 
 	if (user) {
 		getAdmin(user);
-		console.log(user)
-		console.log(ADMIN)
+		console.log(user);
+		console.log(ADMIN);
 	}
-	// routes below goes to student, even when logged out, it's late, I'm calling it a night. but pushing it up because views are set
-
-
 	return (
 		<div className="App">
 			<NavBar handleLogout={handleLogout} user={user} ADMIN={ADMIN} />
@@ -83,13 +98,11 @@ function App({ADMIN}) {
 					)}
 				</Route>
 				{user ? (
-				<>
-					{ADMIN === 'parent' ? (
+					<>
+						{ADMIN === "parent" ? (
 							<div>
 								<Route exact path="/parent">
-									<ParentContainer
-										user={user}
-									/>
+									<ParentContainer user={user} />
 								</Route>
 								<Route exact path="/add_new_student">
 									<AddStudentToParent
@@ -104,26 +117,32 @@ function App({ADMIN}) {
 									/>
 								</Route>
 								<Route exact path="/cafeteria_menu">
-									<CafeteriaMenu menu={user.cafeteria_menus} user={user} />
+									<CafeteriaMenu
+										menu={user.cafeteria_menus}
+										user={user}
+									/>
 								</Route>
 							</div>
 						) : (
-						<>
-						{ADMIN === 'student' ? (
-					<>
-						<Route exact path="/student">
-							<StudentContainer
-								user={user}
-							/>
-						</Route>
-							<Route exact path="/cafeteria_menu">
-								<FoodSelecion menu={user.cafeteria_menus} user={user} />
-							</Route>
-					</> ) : null}
-					</> )} 
-				</>
-				) : null }
-
+							<>
+								{ADMIN === "student" ? (
+									<>
+										<Route exact path="/student">
+											<StudentContainer user={user} />
+										</Route>
+										<Route exact path="/cafeteria_menu">
+											<FoodSelecion
+												menu={user.cafeteria_menus}
+												user={user}
+											/>
+										</Route>
+									</>
+								) : null}
+							</>
+						)}
+					</>
+				) : null}
+				;
 				<Auth setUser={setUser} user={user} ADMIN={ADMIN} />
 			</Switch>
 		</div>

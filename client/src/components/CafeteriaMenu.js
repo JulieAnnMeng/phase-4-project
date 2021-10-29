@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ItemContent, Table } from "semantic-ui-react";
-import EachFood from "./EachFood";
+import EachFoodParent from "./EachFoodParent";
 import EachFoodOnList from "./EachFoodOnList";
 
 function CafeteriaMenu({ menu, user }) {
@@ -16,21 +16,21 @@ function CafeteriaMenu({ menu, user }) {
 	console.log("added", listForStudents);
 	console.log(cafeteriaMenu);
 
-    // const linkStyles = {
-    //     display: "inline-block",
-    //     width: "200px",
-    //     padding: "12px",
-    //     margin: "20px 6px 6px",
-    //     background: "#191815",
-    //     textDecoration: "none",
-    //     color: "white",
-    //     fontSize: "16px",
-    // };
+	// const linkStyles = {
+	//     display: "inline-block",
+	//     width: "200px",
+	//     padding: "12px",
+	//     margin: "20px 6px 6px",
+	//     background: "#191815",
+	//     textDecoration: "none",
+	//     color: "white",
+	//     fontSize: "16px",
+	// };
 
-    function handleMenu (e) {
-        e.preventDefault();
-        // Should add if we have time. if no, just use seed data as the Schools set menu
-    }
+	function handleMenu(e) {
+		e.preventDefault();
+		// Should add if we have time. if no, just use seed data as the Schools set menu
+	}
 
 	// useEffect(() => {
 	// 	fetch(`/api/cafeteria_menus/`)
@@ -41,16 +41,20 @@ function CafeteriaMenu({ menu, user }) {
 	return (
 		<>
 			<h2>List of item to choose from</h2>
-            {/* Add this form if we have time. if not, keep seed menu as cafeteria menu
+			{/* Add this form if we have time. if not, keep seed menu as cafeteria menu
             <button style={linkStyles}activeStyle={{Background: "#a09b8d",}} onClick={handleMenu}>
                 Add Menu Item
             </button> */}
 			<div class="ui centered cards container">
 				{menu.map((item) => (
-					<EachFood key={item.id} item={item} handleAdd={handleAdd} />
+					<EachFoodParent
+						key={item.id}
+						item={item}
+						handleAdd={handleAdd}
+					/>
 				))}
 			</div>
-		    <h2>List of item to that Students can choose from</h2>
+			{/* <h2>List of item to that Students can choose from</h2>
                 <div class="ui centered cards container" style={{ width: "400px" }}>
                     <Table padded="very" celled padded>
                         <Table.Body>
@@ -59,8 +63,8 @@ function CafeteriaMenu({ menu, user }) {
                             ))}
                         </Table.Body>
                     </Table>
-			</div>
-        </>
+			</div> */}
+		</>
 	);
 }
 export default CafeteriaMenu;

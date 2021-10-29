@@ -6,11 +6,25 @@ import EachFoodOnList from "./EachFoodOnList";
 function FoodSelecion({ menu, user }) {
 	const [cafeteriaMenu, setCafeteriaMenu] = useState([]);
 	const [listForStudents, setListForStudents] = useState([]);
+	console.log(menu);
 
 	function handleAdd(item) {
 		const found = listForStudents.some((arrVal) => item === arrVal);
 		if (!found) {
 			setListForStudents([...listForStudents, item]);
+
+			// 	fetch(`/api/parent_selections`, {
+			// 		method: "POST",
+			// 		headers: {
+			// 			"Content-Type": "application/json",
+			// 		},
+			// 		body: JSON.stringify({
+			// 			cafeteria_menu_id: item.id,
+			// 			student_id: user.id,
+			// 		}),
+			// 	})
+			// 		.then((res) => res.json())
+			// 		.then((data) => console.log(data));
 		}
 	}
 	console.log("added", listForStudents);
@@ -29,7 +43,11 @@ function FoodSelecion({ menu, user }) {
 				<Table padded="very" celled padded>
 					<Table.Body>
 						{listForStudents.map((item) => (
-							<EachFoodOnList key={item.id} item={item} user={user} />
+							<EachFoodOnList
+								key={item.id}
+								item={item}
+								user={user}
+							/>
 						))}
 					</Table.Body>
 				</Table>

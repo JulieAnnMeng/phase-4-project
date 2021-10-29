@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, Card, Image, Icon } from "semantic-ui-react";
 
-function EachFood({ item, handleAdd }) {
-	const extra = (
-		<Button basic color="green" onClick={() => handleAdd(item)}>
-			Add to list
-		</Button>
-	);
+function EachFoodParent({ item, handleAdd }) {
+	// const extra = (
+	// 	<Button basic color="green" onClick={() => handleAdd(item)}>
+	// 		Add to list
+	// 	</Button>
+	// );
 	console.log(item);
 	return (
 		<>
@@ -14,9 +14,9 @@ function EachFood({ item, handleAdd }) {
 				image={item.picture}
 				header={item.item}
 				description={item.meal}
-				extra={extra}
+				// extra={extra}
 			/>
 		</>
 	);
 }
-export default EachFood;
+export default EachFoodParent;

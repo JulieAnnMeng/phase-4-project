@@ -10,7 +10,6 @@ class Api::ParentSelectionsController < ApplicationController
     end
 
     def create
-        byebug
         selection = ParentSelection.new(parent_selection_params)
         if selection.save
             render json: selection, status: :created
@@ -29,7 +28,6 @@ class Api::ParentSelectionsController < ApplicationController
     end
 
     def destroy
-        byebug
         selection = ParentSelection.find_by(cafeteria_menu_id: params[:id])
         selection.destroy
         head :no_content
@@ -38,6 +36,6 @@ class Api::ParentSelectionsController < ApplicationController
     private
 
     def parent_selection_params
-        params.permit(:cafeteria_menu_id, :parent_id)
+        params.permit(:cafeteria_menu_id, :student_id)
     end
 end

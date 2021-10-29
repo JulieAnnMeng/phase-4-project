@@ -2,8 +2,11 @@ import React from "react";
 import { Header, Image, Table, Button } from "semantic-ui-react";
 
 function EachFoodOnList({ item }) {
-	function handleAdd() {
-		fetch("/api/parent_selection/")
+	function handleDelete() {
+		// fetch(`/api/parent_selections/${item.id}`, {
+		// 	method: "DELETE",
+		// }).then((data) => console.log("delete", data));
+		// console.log("delete");
 	}
 
 	// console.log(item);
@@ -20,7 +23,7 @@ function EachFoodOnList({ item }) {
 					</Header>
 				</Table.Cell>
 				<Table.Cell textAlign="center">
-					<Button basic color="red" onClick={handleAdd}>
+					<Button basic color="red" onClick={handleDelete}>
 						Delete
 					</Button>
 				</Table.Cell>
