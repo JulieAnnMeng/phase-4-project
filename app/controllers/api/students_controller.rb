@@ -6,7 +6,7 @@ class Api::StudentsController < ApplicationController
 
     def show
         student = Student.find(params[:id])
-        render json: student, include: ['student_selections.cafeteria_menu'] status: :ok
+        render json: student, status: :ok
     end
 
     def create

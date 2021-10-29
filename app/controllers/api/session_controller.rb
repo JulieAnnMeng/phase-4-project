@@ -7,7 +7,7 @@ class Api::SessionController < ApplicationController
             parent = Parent.find_by(username: params[:username])
             if parent&.authenticate(params[:password])
                 session[:parent_id] = parent.id
-                render json: parent, include: ['student_selections.parent_selections', include: ['cafeteria_menu']], status: :ok
+                render json: parent, status: :ok
             else
                 render json: { errors: "Invalid username or password" }, status: :unauthorized
             end
@@ -37,3 +37,5 @@ class Api::SessionController < ApplicationController
         end
     end
 end
+
+# include: ['student_selections.parent_selections', include: ['cafeteria_menu']]

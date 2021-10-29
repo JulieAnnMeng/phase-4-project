@@ -4,7 +4,7 @@ class Api::ParentsController < ApplicationController
     def create
         parent = Parent.create(parent_params)
         session[:parent_id] = parent.id
-        render json: parent, status: :created
+        render json: parent ,status: :created
     end
 
         def index

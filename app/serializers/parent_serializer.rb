@@ -1,10 +1,8 @@
 class ParentSerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :username, :students, :parent_selections, :student_selections
-
-  has_many :parent_selections
-  has_many :cafeteria_menus
+  attributes :id, :first_name, :last_name, :username, :students
   has_many :students
-  has_many :student_selections
+  has_many :cafeteria_menus
+  has_many :parent_selections
 
   # def student_menu
   #   selection = object.students.map{|student| student.student_selections}
