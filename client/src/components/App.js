@@ -21,24 +21,27 @@ function App() {
 	const [userLevel, setUserLevel] = useState(null);
 	const [students, setStudents] = useState(null);
 	const [parentSelection, setParentSelection] = useState(null);
+	const [reRender, setReRender] = useState(false);
 
 	const history = useHistory();
-
+	function renderApp() {
+		setReRender(!reRender);
+	}
 	useEffect(() => {
 		fetch("/api/me").then((response) => {
 			if (response.ok) {
 				response.json().then((user) => {
 					setUser(user);
-					getStudents(user.id);
-					getParentSelection(user.id);
+					// getStudents(user.id);
+					// getParentSelection(user.id);
 				});
 			}
 		});
-	}, []);
+	}, [reRender]);
 
-	// if (user) {
-	// 	console.log(user);
-	// }
+	if (user) {
+		console.log(user);
+	}
 
 	function handleLogout() {
 		fetch("/api/logout", {
@@ -50,17 +53,17 @@ function App() {
 		});
 	}
 
-	function getStudents(id) {
-		fetch(`/api/children/${id}`)
-			.then((response) => response.json())
-			.then(setStudents);
-	}
+	// function getStudents(id) {
+	// 	fetch(`/api/children/${id}`)
+	// 		.then((response) => response.json())
+	// 		.then(setStudents);
+	// }
 
-	function getParentSelection(id) {
-		fetch(`/api/parent_selections/${id}`)
-			.then((response) => response.json())
-			.then((data) => setParentSelection(data));
-	}
+	// function getParentSelection(id) {
+	// 	fetch(`/api/parent_selections/${id}`)
+	// 		.then((response) => response.json())
+	// 		.then((data) => setParentSelection(data));
+	// }
 
 	return (
 		<div className="App">
@@ -85,13 +88,19 @@ function App() {
 							/>
 						</Route>
 						<Route exact path="/add_new_student">
-							<AddStudentToParent user={user} />
+							<AddStudentToParent
+								user={user}
+								renderApp={renderApp}
+							/>
 						</Route>
 						<Route exact path="/view_students">
-							<ViewChildren students={students} />
+							<ViewChildren
+								students={user.students}
+								renderApp={renderApp}
+							/>
 						</Route>
 						<Route exact path="/cafeteria_menu">
-							<FoodSelecion />
+							<FoodSelecion menu={user.cafeteria_menus} />
 						</Route>
 					</>
 				) : null}

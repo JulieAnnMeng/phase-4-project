@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 	margin-top: 200px;
 `;
 
-function AddStudentToParent({ user }) {
+function AddStudentToParent({ user, renderApp }) {
 	const [formData, setFormData] = useState({
 		first_name: "",
 		last_name: "",
@@ -32,26 +32,20 @@ function AddStudentToParent({ user }) {
 	function handleSubmit(e) {
 		e.preventDefault();
 		console.log(formData);
-		// fetch(`/api/signup`, {
-		// 	method: "POST",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify({
-		// 		first_name: formData.first_name,
-		// 		last_name: formData.last_name,
-		// 		username: formData.username,
-		// 		password: formData.password,
-		// 		password_confirmation: formData.password_confirmation,
-		// 	}),
-		// })
-		// 	.then((r) => r.json())
-		// 	.then((data) => {
-		// 		setUser(data);
-		// 		console.log(data);
-		// 		history.push("/parent");
-		// 	});
-		// // .catch((err) => setUser(null));
+		fetch(`/api/students`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		})
+			.then((r) => r.json())
+			.then((data) => {
+				console.log(data);
+				renderApp();
+				history.push("/view_students");
+			});
+		// .catch((err) => setUser(null));
 
 		setFormData({
 			first_name: "",

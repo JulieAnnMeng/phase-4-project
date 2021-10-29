@@ -3,7 +3,7 @@ import { ItemContent, Table } from "semantic-ui-react";
 import EachFood from "./EachFood";
 import EachFoodOnList from "./EachFoodOnList";
 
-function FoodSelecion() {
+function FoodSelecion({ menu }) {
 	const [cafeteriaMenu, setCafeteriaMenu] = useState([]);
 	const [listForStudents, setListForStudents] = useState([]);
 
@@ -16,11 +16,11 @@ function FoodSelecion() {
 	console.log("added", listForStudents);
 	console.log(cafeteriaMenu);
 
-	useEffect(() => {
-		fetch(`/api/cafeteria_menus/`)
-			.then((response) => response.json())
-			.then((data) => setCafeteriaMenu(data));
-	}, []);
+	// useEffect(() => {
+	// 	fetch(`/api/cafeteria_menus/`)
+	// 		.then((response) => response.json())
+	// 		.then((data) => setCafeteriaMenu(data));
+	// }, []);
 
 	return (
 		<>
@@ -36,7 +36,7 @@ function FoodSelecion() {
 			</div>
 			<h2>List of item to choose from</h2>
 			<div class="ui centered cards container">
-				{cafeteriaMenu.map((item) => (
+				{menu.map((item) => (
 					<EachFood key={item.id} item={item} handleAdd={handleAdd} />
 				))}
 			</div>

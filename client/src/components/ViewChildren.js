@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import EachChild from "./EachChild";
 // import ViewMenu from './ViewMenu';
 
-function ViewChildren({ students }) {
+function ViewChildren({ students, renderApp }) {
 	return (
 		<div>
 			<h2>Students</h2>
@@ -15,7 +15,11 @@ function ViewChildren({ students }) {
 				</thead>
 				<tbody>
 					{students.map((child) => (
-						<EachChild key={child.id} child={child} />
+						<EachChild
+							key={child.id}
+							child={child}
+							renderApp={renderApp}
+						/>
 					))}
 				</tbody>
 			</table>

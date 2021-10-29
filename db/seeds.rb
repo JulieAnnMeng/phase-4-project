@@ -15,10 +15,9 @@ puts 'seeding Students...'
 
 andy = Student.create(first_name: 'Andy', last_name: 'Anguilar', username: 'AAnguilar', password_digest: BCrypt::Password.create('password'), parent: julie)
 dakota = Student.create(first_name: 'Dakota', last_name: 'Martinez', username: 'DMartinez', password_digest: BCrypt::Password.create('password'), parent: paul)
-aysan = Student.create(first_name: 'Aysan', last_name: 'Isayo', username: 'AIsayo', password_digest: BCrypt::Password.create('password'), parent: chaim)
 cody = Student.create(first_name: 'Cody', last_name: 'Green', username: 'CGreen', password_digest: BCrypt::Password.create('password'), parent: julie)
 blake = Student.create(first_name: 'Blake', last_name: 'Long', username: 'BLong', password_digest: BCrypt::Password.create('password'), parent: chaim)
-
+aysan = Student.create(first_name: 'aysan', last_name: 'aysan', username: 'aysan', password_digest: BCrypt::Password.create('password'), parent: chaim)
 puts 'seeding CafeteriaMenu...'
 
 pancakes = CafeteriaMenu.create(meal: 'Breakfast', item: 'pancakes', picture: 'https://i.pinimg.com/originals/2a/92/70/2a9270822ae30fbd8c25b928df0d7fcc.jpg', parent_id: 1)
