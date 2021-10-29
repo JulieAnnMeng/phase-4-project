@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 	margin-top: 200px;
 `;
 
-function Login({ setUser }) {
+function Login({ setUser, ADMIN }) {
 	const [formData, setFormData] = useState({
 		username: "",
 		password: "",
@@ -32,9 +32,14 @@ function Login({ setUser }) {
 		setFormData({ ...formData, [name]: value });
 	}
 
+	// if (formData.user === "parent"){
+	// 	ADMIN = formData.user;
+	// 	} else {setAdmin(false)}
+
 	function handleSubmit(e) {
 		e.preventDefault();
-		console.log(formData);
+		ADMIN = formData.user;
+		console.log(ADMIN);
 		fetch(`/api/login`, {
 			method: "POST",
 			headers: {
@@ -47,26 +52,19 @@ function Login({ setUser }) {
 				password_confirmation: formData.password,
 			}),
 		})
-			// .then((r) => r.json())
-			// .then((data) => {
-			// 	setUser(data);
-			// 	// console.log(data);
-			// 	history.push("/parent");
-			// })
-			// .catch((err) => setUser(null));
-
 			.then((r) => {
 				// setIsLoading(false);
 				if (r.ok) {
 					r.json().then((data) => {
 						setUser(data);
-						history.push("/parent");
+						history.push(`/${ADMIN}`);
 					});
 				} else {
 					r.json().then((err) => setErrors(err.errors));
 				}
 			});
-
+		
+		
 		setFormData({ username: "", password: "", user: "" });
 	}
 

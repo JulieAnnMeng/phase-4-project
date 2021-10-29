@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 	margin-top: 200px;
 `;
 
-function CreateAdminUser({ setUser }) {
+function CreateAdminUser({ setUser, ADMIN}) {
 	const [formData, setFormData] = useState({
 		first_name: "",
 		last_name: "",
@@ -47,9 +47,8 @@ function CreateAdminUser({ setUser }) {
 		})
 			.then((r) => r.json())
 			.then((data) => {
-				setUser(data);
-				console.log(data);
-				history.push("/parent");
+				setUser(data);			
+				history.push(`/parent`);
 			});
 		// .catch((err) => setUser(null));
 

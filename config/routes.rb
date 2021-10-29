@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get "/me", to: "session#show"
     get "/children/:id", to: "parents#getkids"
     get "/parent_selections/:id", to: "parent_selections#show"
-    get "/student_selections/:id", to: "student_selections#show"
+    # get "/student_selections/:id", to: "student_selections#show"
     post "/login", to: "session#create"
     delete "/logout", to: "session#destroy"
     post "/signup", to: "parents#create"

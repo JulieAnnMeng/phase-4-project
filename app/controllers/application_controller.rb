@@ -12,7 +12,6 @@ class ApplicationController < ActionController::API
   private
 
   def authorize
-    # byebug
     if session[:parent_id]
       @current_user = Parent.find_by(id: session[:parent_id])
     end

@@ -12,11 +12,12 @@ function EachFood({ item, handleAdd }) {
 		<>
 			<Card
 				image={item.picture}
-				header={item.meal}
-				description={item.item}
+				header={item.item}
+				description={item.meal}
 				extra={extra}
 			/>
 		</>
 	);
 }
 export default EachFood;
+ 

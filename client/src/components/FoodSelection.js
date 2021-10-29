@@ -3,7 +3,7 @@ import { ItemContent, Table } from "semantic-ui-react";
 import EachFood from "./EachFood";
 import EachFoodOnList from "./EachFoodOnList";
 
-function FoodSelecion({ menu }) {
+function FoodSelecion({ menu, user }) {
 	const [cafeteriaMenu, setCafeteriaMenu] = useState([]);
 	const [listForStudents, setListForStudents] = useState([]);
 
@@ -24,12 +24,12 @@ function FoodSelecion({ menu }) {
 
 	return (
 		<>
-			<h2>List of item to that Students can choose from</h2>
+			<h2>{user.first_name}'s menu</h2>
 			<div class="ui centered cards container" style={{ width: "400px" }}>
 				<Table padded="very" celled padded>
 					<Table.Body>
 						{listForStudents.map((item) => (
-							<EachFoodOnList key={item.id} item={item} />
+							<EachFoodOnList key={item.id} item={item} user={user} />
 						))}
 					</Table.Body>
 				</Table>

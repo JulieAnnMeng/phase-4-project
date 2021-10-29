@@ -1,8 +1,9 @@
 import React from "react";
 import { Header, Image, Table, Button } from "semantic-ui-react";
+
 function EachFoodOnList({ item }) {
 	function handleAdd() {
-		console.log(item.id);
+		fetch("/api/parent_selection/")
 	}
 
 	// console.log(item);

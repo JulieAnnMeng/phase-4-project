@@ -12,42 +12,77 @@ const linkStyles = {
 	fontSize: "16px",
 };
 
-function NavBar({ handleLogout, user }) {
+function NavBar({ handleLogout, user, ADMIN }) {
 	return (
 		<>
 			<div>
 				{user ? (
 					<>
-						<NavLink
-							to="/add_new_student"
+					{ADMIN === 'parent' ? (
+						<>
+							<NavLink
+							to="/parent"
 							exact
 							style={linkStyles}
 							activeStyle={{
 								background: "#a09b8d",
-							}}
-						>
-							Add Student
-						</NavLink>
-						<NavLink
-							to="/view_students"
-							exact
-							style={linkStyles}
-							activeStyle={{
-								background: "#a09b8d",
-							}}
-						>
-							View Students
-						</NavLink>
-						<NavLink
+							}}>
+							Home
+							</NavLink>
+							<NavLink
+								to="/add_new_student"
+								exact
+								style={linkStyles}
+								activeStyle={{
+									background: "#a09b8d",
+								}}
+							>
+								Add Student
+							</NavLink>
+							<NavLink
+								to="/view_students"
+								exact
+								style={linkStyles}
+								activeStyle={{
+									background: "#a09b8d",
+								}}
+							>
+								View Students
+							</NavLink>
+							<NavLink
 							to="/cafeteria_menu"
 							exact
 							style={linkStyles}
 							activeStyle={{
 								background: "#a09b8d",
 							}}
-						>
-							Cafeteria Menu
-						</NavLink>
+							>
+								Cafeteria Menu
+							</NavLink>
+						</>
+					): 
+						<>
+							<NavLink
+								to="/student"
+								exact
+								style={linkStyles}
+								activeStyle={{
+									background: "#a09b8d",
+								}}>
+								Home
+							</NavLink>
+							<NavLink
+								to="/cafeteria_menu"
+								exact
+								style={linkStyles}
+								activeStyle={{
+									background: "#a09b8d",
+								}}
+							>
+								Cafeteria Menu
+							</NavLink>
+						</>
+					}
 						<NavLink
 							to="/"
 							exact
