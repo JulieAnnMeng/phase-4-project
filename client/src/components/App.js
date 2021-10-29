@@ -64,7 +64,7 @@ function App({ADMIN}) {
 	}
 
 	if (user) {
-		getAdmin (user);
+		getAdmin(user);
 		console.log(user)
 		console.log(ADMIN)
 	}
