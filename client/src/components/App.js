@@ -37,6 +37,7 @@ function App({ ADMIN }) {
 			.then((data) => {
 				getAdmin(data);
 				setUser(data);
+				console.log(data);
 			})
 			.catch((error) => {
 				console.log(error.message);
@@ -132,7 +133,7 @@ function App({ ADMIN }) {
 										</Route>
 										<Route exact path="/cafeteria_menu">
 											<FoodSelecion
-												menu={user.cafeteria_menus}
+												menu={user.cafe_of_student}
 												user={user}
 											/>
 										</Route>
