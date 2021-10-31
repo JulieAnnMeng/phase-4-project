@@ -7,4 +7,7 @@ class StudentSerializer < ActiveModel::Serializer
   def cafe_of_student
     CafeteriaMenu.where("parent_id = ?", self.object.parent_id)
   end
+  # def student_selected
+  #   CafeteriaMenu.parent_selections
+  # end
 end

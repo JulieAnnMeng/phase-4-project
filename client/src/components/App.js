@@ -17,9 +17,9 @@ import {
 } from "react-router-dom";
 import NavBar from "./Navbar";
 import Login from "./Login";
-let ADMIN = null;
 
-function App({ ADMIN }) {
+function App() {
+	let ADMIN = null;
 	const [user, setUser] = useState(null);
 	const [userLevel, setUserLevel] = useState(null);
 	const [students, setStudents] = useState(null);
@@ -29,7 +29,6 @@ function App({ ADMIN }) {
 	const history = useHistory();
 	function renderApp() {
 		setReRender(!reRender);
-		console.log("RERENDER");
 	}
 	useEffect(() => {
 		fetch("/api/me")
@@ -38,11 +37,12 @@ function App({ ADMIN }) {
 				getAdmin(data);
 				setUser(data);
 				console.log(data);
+				console.log("RERENDER");
 			})
 			.catch((error) => {
 				console.log(error.message);
 			});
-	}, []);
+	}, [reRender]);
 	// reRender
 
 	// useEffect(() => {
@@ -121,6 +121,7 @@ function App({ ADMIN }) {
 									<CafeteriaMenu
 										menu={user.cafeteria_menus}
 										user={user}
+										renderApp={renderApp}
 									/>
 								</Route>
 							</div>

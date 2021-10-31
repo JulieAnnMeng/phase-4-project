@@ -1,13 +1,14 @@
 import React from "react";
 import { Button } from "semantic-ui-react";
 
-function EachChild({ child }) {
+function EachChild({ child, renderApp }) {
 	function handleDelete() {
 		console.log("child");
 		fetch(`/api/students/${child.id}`, {
 			method: "DELETE",
 		}).then((data) => {
 			console.log("del", data);
+			renderApp();
 		});
 		// .catch((err) => setUser(null));
 	}
