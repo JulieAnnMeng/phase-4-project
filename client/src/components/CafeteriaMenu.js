@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ItemContent, Table } from "semantic-ui-react";
 import EachFoodParent from "./EachFoodParent";
 import EachFoodOnList from "./EachFoodOnList";
+import AddToStudentFood from "./AddToStudentFood";
 
 function CafeteriaMenu({ menu, user }) {
 	const [cafeteriaMenu, setCafeteriaMenu] = useState([]);
@@ -40,6 +41,7 @@ function CafeteriaMenu({ menu, user }) {
 
 	return (
 		<>
+			<AddToStudentFood user={user} />
 			<h2>List of item to choose from</h2>
 			{/* Add this form if we have time. if not, keep seed menu as cafeteria menu
             <button style={linkStyles}activeStyle={{Background: "#a09b8d",}} onClick={handleMenu}>

@@ -32,13 +32,6 @@ class Api::SessionController < ApplicationController
         session.delete :parent_id
         session.delete :student_id
         head :no_content
-        # if session[:parent_id]
-            
-        #     head :no_content
-        # end
-        # if session[:student_id]
-            
-        # end
     end
 end
 

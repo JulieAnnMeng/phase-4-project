@@ -10,14 +10,15 @@ class Api::CafeteriaMenusController < ApplicationController
     end
 
     def create
-        menu_item = CafeteriaMenu.new(cafeteria_menu_params)
-        if menu_item.save
-            id = session[:parent_id]
-            menu_entry = {cafeteria_menu_id: menu_item.id, parent_id: id}
-            ParentSelection.create(menu_entry)
-        else
-            render json: {errors: menu_item.errors}, status: :unprocessable_entity
-        end
+        menu_item = CafeteriaMenu.create!(cafeteria_menu_params)
+        # if menu_item.save
+        #     # id = session[:parent_id]
+        #     # menu_entry = {cafeteria_menu_id: menu_item.id, parent_id: id}
+        #     ParentSelection.create(cafeteria_menu_params)
+        # else
+        #     render json: {errors: menu_item.errors}, status: :unprocessable_entity
+        # end
+        render json: menu_item, status: :created
     end
 
     def update
@@ -38,6 +39,6 @@ class Api::CafeteriaMenusController < ApplicationController
     private
     
     def cafeteria_menu_params
-        params.permit(:meal, :item, :picture)
+        params.permit(:meal, :item, :picture, :parent_id)
     end
 end
